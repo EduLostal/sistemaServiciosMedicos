@@ -20,5 +20,8 @@ mongo = PyMongo(app)
 jwt = JWTManager(app)
 
 # Registrar rutas
-from app.routes import sistemaRoutes
-app.register_blueprint(sistemaRoutes)
+from app.routesUser import userRoutes
+app.register_blueprint(userRoutes)
+
+from app.routesAppointment import appointmentRoutes
+app.register_blueprint(appointmentRoutes)
