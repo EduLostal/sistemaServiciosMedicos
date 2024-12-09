@@ -58,7 +58,7 @@ def listAppointments():
         return jsonify(userAppointments), 200
     
     else:
-        return jsonify({"message": "No se encontraron citas para este usuario"}), 404
+        return jsonify([]), 200
 
 
 # Ruta para eliminar una cita asignada a un usuario
