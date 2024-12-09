@@ -117,7 +117,7 @@ async function deleteAppointment(e) {
         fetchAppointments(); // Recargar las citas después de eliminar una
     } catch (error) {
         console.error("Error al borrar cita:", error);
-        alert("Hubo un error al borrar la cita");
+        alert("Hubo un error al borrar las citas");
     }
 }
 
@@ -156,6 +156,69 @@ async function editAppointment(e) {
 document.getElementById("logoutButton").addEventListener("click", () => {
     localStorage.removeItem("token");
     window.location.href = "login.html";
+});
+
+// Función para editar el usuario
+document.getElementById("editUserButton").addEventListener("click", async () => {
+    const newName = prompt("Introduce tu nuevo nombre:");
+    const newEmail = prompt("Introduce tu nuevo email:");
+    const newPassword = prompt("Introduce tu nueva contraseña:");
+    const updateData = {};
+
+    if (newName) updateData.name = newName;
+    if (newEmail) updateData.email = newEmail;
+    if (newPassword) updateData.password = newPassword;
+
+    if (Object.keys(updateData).length === 0) {
+        alert("Debes proporcionar al menos un dato para actualizar.");
+        return;
+    }
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/users", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(updateData),
+        });
+
+        if (response.ok) {
+            alert("Usuario actualizado exitosamente");
+        } else {
+            const error = await response.json();
+            alert(error.error || "Hubo un error al actualizar el usuario.");
+        }
+    } catch (error) {
+        console.error("Error al editar el usuario:", error);
+        alert("Hubo un error al editar el usuario.");
+    }
+});
+
+// Función para eliminar el usuario
+document.getElementById("deleteUserButton").addEventListener("click", async () => {
+    const confirmDelete = confirm("¿Estás seguro de que quieres eliminar tu cuenta?");
+    if (!confirmDelete) return;
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/users", {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (response.ok) {
+            alert("Usuario eliminado exitosamente");
+            localStorage.removeItem("token");
+            window.location.href = "login.html"; // Redirigir al login después de eliminar la cuenta
+        } else {
+            const error = await response.json();
+            alert(error.error || "Hubo un error al eliminar la cuenta.");
+        }
+    } catch (error) {
+        console.error("Error al eliminar usuario:", error);
+        alert("Hubo un error al eliminar la cuenta.");
+    }
 });
 
 // Llamar a la función para cargar las citas al cargar la página

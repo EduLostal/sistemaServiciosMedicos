@@ -81,8 +81,8 @@ def editUser():
     # Obtener los datos del cuerpo de la solicitud
     data = request.json
     name = data.get("name")
-    email = data.get("description")
-    password = data.get("pasword")
+    email = data.get("email")
+    password = data.get("password")
 
     
     # Crear el objeto de actualización
