@@ -123,8 +123,8 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
 2. **Listar Citas**
    - **GET** /appointments (Requiere Autenticación JWT)
    - **Parámetros Opcionales**:
-     - `date` (string): Filtrar citas por fecha.
-     - `description` (string): Filtrar citas por descripción.
+     - date (string): Filtrar citas por fecha.
+     - description (string): Filtrar citas por descripción.
    - **Respuesta**:
      - **200** Lista de citas.
 
