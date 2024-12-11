@@ -27,28 +27,31 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
    ```
 
 2. **Crea un entorno virtual con Anaconda**:
-   ```bash
+   ```
    conda create --name sistemaServiciosMedicos 
-   Para activarlo --> conda activate citasMedicas
    ```
 
-3. **Instala las dependencias**:
+3. **Activa el entorno**:
+   ```
+   conda activate sistemaServiciosMedicos
+   ```   
+
+4. **Instala las dependencias**:
    ```
    pip install -r requirements.txt
    ```
 
-4. **Configura las variables de entorno**:
+5. **Configura las variables de entorno**:
    Crea un archivo .env en la raíz del proyecto con el siguiente contenido:
    ```
    MONGO_URI=mongodb://127.0.0.1:27017/sistemaServiciosMedicos
    JWT_SECRET_KEY=citasMedicas0077
    ```
 
-5. **Ejecuta la aplicación**:
+6. **Ejecuta la aplicación**:
    ```
    python run.py
    ```
-   El servidor estará disponible en http://127.0.0.1:5000/.
 
 ---
 
@@ -57,7 +60,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
 ### Usuarios
 
 1. **Registro de Usuarios**
-   - **POST** `/register`
+   - **POST** /register
    - **Cuerpo**:
      ```json
      {
@@ -71,7 +74,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **400** Email ya registrado.
 
 2. **Inicio de Sesión**
-   - **POST** `/login`
+   - **POST** /login
    - **Cuerpo**:
      ```json
      {
@@ -84,7 +87,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **401** Credenciales inválidas.
 
 3. **Editar Usuario**
-   - **PUT** `/users` (Requiere Autenticación JWT)
+   - **PUT** /users (Requiere Autenticación JWT)
    - **Cuerpo**:
      ```json
      {
@@ -98,7 +101,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **404** Usuario no encontrado.
 
 4. **Eliminar Usuario**
-   - **DELETE** `/users` (Requiere Autenticación JWT)
+   - **DELETE** /users (Requiere Autenticación JWT)
    - **Respuesta**:
      - **200** Usuario eliminado exitosamente.
      - **404** Usuario no encontrado.
@@ -106,7 +109,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
 ### Citas Médicas
 
 1. **Crear Cita**
-   - **POST** `/appointments` (Requiere Autenticación JWT)
+   - **POST** /appointments (Requiere Autenticación JWT)
    - **Cuerpo**:
      ```json
      {
@@ -118,7 +121,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **201** Cita creada exitosamente.
 
 2. **Listar Citas**
-   - **GET** `/appointments` (Requiere Autenticación JWT)
+   - **GET** /appointments (Requiere Autenticación JWT)
    - **Parámetros Opcionales**:
      - `date` (string): Filtrar citas por fecha.
      - `description` (string): Filtrar citas por descripción.
@@ -126,7 +129,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **200** Lista de citas.
 
 3. **Editar Cita**
-   - **PUT** `/appointments/<appointment_id>` (Requiere Autenticación JWT)
+   - **PUT** /appointments/<appointment_id> (Requiere Autenticación JWT)
    - **Cuerpo**:
      ```json
      {
@@ -139,7 +142,7 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
      - **404** Cita no encontrada.
 
 4. **Eliminar Cita**
-   - **DELETE** `/appointments/<appointment_id>` (Requiere Autenticación JWT)
+   - **DELETE** /appointments/<appointment_id> (Requiere Autenticación JWT)
    - **Respuesta**:
      - **200** Cita eliminada exitosamente.
      - **404** Cita no encontrada.
@@ -150,15 +153,15 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
 El frontend del sistema de gestión de citas médicas permite interactuar con el backend mediante peticiones HTTP. Incluye las siguientes funcionalidades:
 
 ### 1. **Login de Usuarios**
-- Archivo: `login.js`
+- Archivo: login.js
 - Descripción: Permite a los usuarios autenticarse ingresando su correo electrónico y contraseña. Si las credenciales son válidas, se almacena el token JWT en el almacenamiento local y se redirige al usuario a la página principal.
 
 ### 2. **Registro de Usuarios**
-- Archivo: `register.js`
+- Archivo: register.js
 - Descripción: Permite a los usuarios registrarse proporcionando su nombre, correo electrónico y contraseña. Redirige al formulario de login tras un registro exitoso.
 
 ### 3. **Gestor de Citas**
-- Archivo: `main.js`
+- Archivo: main.js
 - Funciones principales:
   - Crear citas.
   - Listar citas existentes (con soporte para filtros por fecha y descripción).
@@ -172,11 +175,11 @@ El frontend del sistema de gestión de citas médicas permite interactuar con el
   - Eliminar la cuenta del usuario autenticado.
 
 ### 5. **Cerrar Sesión**
-- Archivo: `main.js`
+- Archivo: main.js
 - Descripción: Permite cerrar sesión eliminando el token JWT del almacenamiento local y redirigiendo al usuario a la página de login.
 
 ---
 
 ## Autenticación
-Este proyecto utiliza JWT (JSON Web Tokens) para autenticar y autorizar usuarios. Cada solicitud a los endpoints protegidos requiere un token JWT en los encabezados:
+Este proyecto utiliza JWT (JSON Web Tokens) para autenticar y autorizar usuarios. Cada solicitud a los endpoints protegidos requiere un token JWT.
 
