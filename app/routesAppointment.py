@@ -27,7 +27,7 @@ def createAppointment():
     return jsonify({"message": "Cita creada exitosamente"}), 201
 
 
-# Ruta para listar citas médicas
+# Ruta para listar citas médicas con filtros opcionales
 @appointmentRoutes.route('/appointments', methods=['GET'])
 @jwt_required()
 def listAppointments():
@@ -38,8 +38,20 @@ def listAppointments():
     appointments = mongo.db.appointments
     users = mongo.db.users
 
-    # Buscar citas relacionadas con el usuario autenticado
-    userAppointments = list(appointments.find({"patient": ObjectId(userId)}))
+    # Obtener parámetros de filtro desde la URL
+    date_filter = request.args.get('date')  # Filtrar por fecha
+    description_filter = request.args.get('description')  # Filtrar por descripción
+
+    # Construir la consulta de búsqueda
+    query = {"patient": ObjectId(userId)}
+
+    if date_filter:
+        query["date"] = date_filter
+    if description_filter:
+        query["description"] = {"$regex": description_filter, "$options": "i"}  # Búsqueda insensible a mayúsculas/minúsculas
+
+    # Buscar citas en la base de datos
+    userAppointments = list(appointments.find(query))
 
     if userAppointments:
         # Convertir ObjectId a cadenas y agregar el nombre del paciente

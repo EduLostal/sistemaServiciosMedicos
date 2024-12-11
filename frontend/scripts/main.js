@@ -5,10 +5,17 @@ if (!token) {
     window.location.href = "login.html";
 }
 
-// Función para obtener y mostrar las citas
-async function fetchAppointments() {
+// Función para obtener y mostrar las citas, ahora con soporte para filtros
+async function fetchAppointments(filters = {}) {
     try {
-        const response = await fetch("http://127.0.0.1:5000/appointments", {
+        // Construir la URL con parámetros de filtro
+        let url = "http://127.0.0.1:5000/appointments";
+        const params = new URLSearchParams(filters).toString();
+        if (params) {
+            url += `?${params}`;
+        }
+
+        const response = await fetch(url, {
             method: "GET",
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -58,6 +65,21 @@ async function fetchAppointments() {
         alert("Hubo un error al cargar las citas");
     }
 }
+
+// Función para aplicar los filtros y llamar a la API
+document.getElementById("filterForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const filterDate = document.getElementById("filterDate").value;
+    const filterDescription = document.getElementById("filterDescription").value;
+
+    const filters = {};
+    if (filterDate) filters.date = filterDate; // Filtro por fecha
+    if (filterDescription) filters.description = filterDescription; // Filtro por descripción
+
+    // Llamar a fetchAppointments con los filtros
+    fetchAppointments(filters);
+});
 
 // Función para crear una nueva cita
 document.getElementById("appointmentForm").addEventListener("submit", async (e) => {
