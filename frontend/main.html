@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Citas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer=""></script>
+    <script src="scripts/main.js" defer=""></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card p-4 shadow">
+            <h2 class="text-center mb-4">SISTEMA DE GESTION DE CITAS MEDICAS</h2>
+            
+            <!-- Formulario para Crear Cita -->
+            <form id="appointmentForm" class="mb-4">
+                <div class="mb-3">
+                    <label for="date" class="form-label">Fecha</label>
+                    <input type="date" id="date" class="form-control" required="">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Descripción</label>
+                    <textarea id="description" class="form-control" rows="3" required=""></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Crear Cita</button>
+            </form>
+            
+                <!-- Formulario para Filtrar Citas -->
+            <form id="filterForm" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="filterDate" class="form-label">Filtrar por Fecha</label>
+                        <input type="date" id="filterDate" class="form-control">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="filterDescription" class="form-label">Filtrar por Descripción</label>
+                        <input type="text" id="filterDescription" class="form-control" placeholder="Palabra clave">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Aplicar Filtros</button>
+            </form>
+
+            
+            <!-- Lista de Citas -->
+            <ul class="list-group" id="appointmentsList">
+                <li class="list-group-item text-center">No hay citas disponibles para el usuario</li>
+            </ul>
+
+            <!-- Botones de Editar y Eliminar Usuario -->
+            <div class="mt-4">
+                <button id="editUserButton" class="btn btn-warning w-100 mb-2">Editar Usuario</button>
+                <button id="deleteUserButton" class="btn btn-danger w-100">Eliminar Usuario</button>
+            </div>
+
+            <!-- Botón de Cerrar Sesión -->
+            <button id="logoutButton" class="btn btn-secondary mt-4 w-100">Cerrar Sesión</button>
+        </div>
+    </div>
+</body>
+</html>
