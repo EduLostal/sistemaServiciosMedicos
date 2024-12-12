@@ -50,7 +50,8 @@ Este proyecto es una aplicación web para la gestión de citas médicas. Impleme
 
 6. **Ejecuta la aplicación**:
    ```
-   python run.py
+   python run.py (Para el Back)
+   python -m http.server 8000 (ejecutar en una terminal navengando hasta la carpeta frontend)
    ```
 
 ---
